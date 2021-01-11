@@ -11,6 +11,12 @@ sudo apt install python3-pip
 echo 'alias python="python3"' &>>~/.bashrc
 echo 'alias pip="pip3"' &>>~/.bashrc
 source ~/.bashrc
+sudo su
+echo 'alias python="python3"' &>>~/.bashrc
+echo 'alias pip="pip3"' &>>~/.bashrc
+source ~/.bashrc
+exit
+
 pip install virtualenv
 pip install boto3
 pip install awscli

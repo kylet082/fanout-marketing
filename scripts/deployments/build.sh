@@ -1,4 +1,7 @@
-echo "fasfa"
+DIR=$( pwd )
+SPLIT_PATH=(${DIR//\/EnterpriseService_v2/ })
+PROJECT_PATH="${SPLIT_PATH[0]}/EnterpriseService_v2"
+
 
 usage() {
   echo $'\n'" Usage : $0 stuff
@@ -11,6 +14,20 @@ if [ $# -eq 0 ]; then
   usage
 fi
 
+function build_workflow_comps() {
+  TYPE=${1}
+  PATH="workflows/${TYPE}/services/service-list.sh"
+  source "${PATH}"
+
+  for c in "${components[@]}"
+  do
+    /bin/bash "${PROJECT_PATH}/aws-components/lambda/${c}/package.sh"
+  done
+}
+
+function build_single_comp() {
+  /bin/bash "./aws-components/lambda/${1}/package.sh"
+}
 
 
 echo "---------------------------------------------------------"
@@ -27,6 +44,11 @@ while [[ $# -gt 0 ]];
       echo "WORKFLOW_TYPE"   ${WF_TYPE}
       shift 2
       ;;
+    --component)
+      COMPONENT=${2}
+      echo "COMPONENT"   ${COMPONENT}
+      shift 2
+      ;;
     --) shift ; break ;;
     -*|--*=)
       echo "Invalid option: -${1}" >&2
@@ -36,13 +58,14 @@ while [[ $# -gt 0 ]];
   done
 echo "---------------------------------------------------------"
 
-PATH="workflows/${WF_TYPE}/services/service-list.sh"
 
-source "${PATH}"
+if [ -z "${COMPONENT}" ] && [ ! -z "${WF_TYPE}" ]; then
+  echo "one parameter need to be set!"
+  build_workflow_comps ${WF_TYPE}
+elif [ ! -z "${COMPONENT}" ] && [  -z "${WF_TYPE}" ]; then
+  echo "WF type builder"
+  build_single_comp ${COMPONENT}
+else
+  echo "Error missing manditory"
+fi
 
-for comp in "${components[@]}"
-do
-  a=$(pwd)
-  echo $a
-  /bin/bash "./aws-components/lambda/${comp}/package.sh"
-done

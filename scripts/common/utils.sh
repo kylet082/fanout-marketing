@@ -1,9 +1,9 @@
-SCRIPT_ROOT=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+DIR=$( pwd )
+SPLIT_PATH=(${DIR//\/EnterpriseService_v2/ })
+PROJECT_PATH="${SPLIT_PATH[0]}/EnterpriseService_v2"
 
-MODULES_DIR=$( cd "${SCRIPT_ROOT}/../../modules" && pwd)
-MODULES_MAPPINGS="$( cd "${SCRIPT_ROOT}/../../modules/" && pwd)/module_mappings.sh"
+MODULES_DIR="${PROJECT_PATH}/modules"
 
-ROOT=$( cd "${SCRIPT_ROOT}/../.." && pwd)
 
 function op_virtual_env {
   if [[ "$VIRTUAL_ENV" != "" ]]
@@ -11,9 +11,9 @@ function op_virtual_env {
     echo "Found active Virtual Env"
   else
     echo "Virtual Env NOT active. Creating new..."
-    virtualenv "${ROOT}/venv_dep"
+    virtualenv "${PROJECT_PATH}/venv_dep"
 
-    /bin/bash -c ". ${ROOT}/venv_dep/bin/activate; exec /bin/bash -i"
+    /bin/bash -c ". ${PROJECT_PATH}/venv_dep/bin/activate; exec /bin/bash -i"
   fi
 }
 

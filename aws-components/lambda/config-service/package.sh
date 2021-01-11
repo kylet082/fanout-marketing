@@ -1,7 +1,10 @@
-DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
-echo "IS Script ${DIR}"
-source "$DIR/scripts/common/utils.sh"
-source "${MODULES_MAPPINGS}"
+DIR=$( pwd )
+SPLIT_PATH=(${DIR//\/EnterpriseService_v2/ })
+PROJECT_PATH="${SPLIT_PATH[0]}/EnterpriseService_v2"
+
+echo "IS Script ${PROJECT_PATH}"
+source "${PROJECT_PATH}/scripts/common/utils.sh"
+source "${PROJECT_PATH}/modules/module_mappings.sh"
 
 LAMBDA_SCRIPT="config-service.py"
 
