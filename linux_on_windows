@@ -1,0 +1,23 @@
+# This is once off setup.
+# Run all the commands listed below in linux (debian/ubuntu) terminal
+#
+
+sudo apt-get update
+sudo apt-get upgrade
+curl -fsSL https://apt.releases.hashicorp.com/gpg | sudo apt-key add -
+sudo apt-add-repository "deb [arch=amd64] https://apt.releases.hashicorp.com $(lsb_release -cs) main"
+sudo apt-get install zip dos2unix terraform=0.11.14 -y
+sudo apt install python3-pip
+echo 'alias python="python3"' &>>~/.bashrc
+echo 'alias pip="pip3"' &>>~/.bashrc
+source ~/.bashrc
+pip install virtualenv
+pip install boto3
+pip install awscli
+
+# Restart the terminal
+
+aws configure
+
+# Follow the prompts enter in keys
+

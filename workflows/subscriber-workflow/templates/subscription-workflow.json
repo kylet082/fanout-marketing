@@ -1,0 +1,149 @@
+{
+  "Comment": "Subscription service workflow",
+  "StartAt": "prepare",
+  "States": {
+    "prepare": {
+      "Type": "Pass",
+      "Comment": "Set the metadata information",
+      "Parameters": {
+        "workflow_type": "marketing-subscription-optin",
+        "workflow_name": "${workflow_name}"
+      },
+      "ResultPath": "$.metadata",
+      "Next": "start-processing"
+    },
+    "start_processing": {
+      "Type": "Parallel",
+      "End": true,
+      "Catch": [
+        {
+          "ErrorEquals": [
+            "States.ALL"
+          ],
+          "Next": "failure_email",
+          "ResultPath": "$.error_info"
+        }
+      ],
+      "Branches": [
+        {
+          "StartAt": "email_start",
+          "States": {
+            "email_start": {
+              "Type": "Task",
+              "Resource": "${email_service_arn}",
+              "Parameters": {
+                "subject": "Opt In Subscription workflow STARTED",
+                "body": {
+                  "Company.$": "$.company",
+                  "User First Name.$": "$.fname",
+                  "User Surname.$": "$.lname",
+                  "Email.$": "$.email",
+                  "Mobile Number.$": "$.mobile_number"
+                }
+              },
+              "ResultPath": "$.notifications.start.send_success",
+              "Next" : "config_service"
+            },
+            "config_service": {
+              "Type": "Task",
+              "Resource": "${config_service_arn}",
+              "Parameters": {
+                "company.$": "$.company",
+                "workflow_name.$": "$.metadata.workflow_name"
+              },
+              "ResultPath": "$.config",
+              "Next": "email-subscriber-service"
+            },
+            "email-subscriber-service": {
+              "Type": "Task",
+              "Resource": "${subscriber_service_arn}",
+              "Parameters": {
+                "action": "MAILCHIMP",
+                "audience_id.$": "$.config.mailchimp.audience_id",
+                "aws_store.$": "$.config.aws_store",
+                "member_info": {
+                  "first_name.$": "$.fname",
+                  "last_name.$": "$.lname",
+                  "email.$": "$.email",
+                  "mobile_number.$": "$.mobile_number",
+                  "birthday.$": "$.birthday"
+                }
+              },
+              "Retry": [
+                {
+                  "ErrorEquals": ["States.All"],
+                  "IntervalSeconds": 2,
+                  "MaxAttempts": 2,
+                  "BackoffRate": 2
+                }
+              ],
+              "ResultPath": "$.results.mailchimp",
+              "Next": "sms-subscriber-service"
+            },
+            "sms-subscriber-service": {
+              "Type": "Task",
+              "Resource": "${subscriber_service_arn}",
+              "Parameters": {
+                "action": "SENDMODE",
+                "audience_id.$": "$.config.sendmode.group_id",
+                "aws_store.$": "$.config.aws_store",
+                "member_info": {
+                  "first_name.$": "$.fname",
+                  "last_name.$": "$.lname",
+                  "email.$": "$.email",
+                  "mobile_number.$": "$.mobile_number",
+                  "birthday.$": "$.birthday"
+                }
+              },
+              "Retry": [
+                {
+                  "ErrorEquals": ["States.All"],
+                  "IntervalSeconds": 2,
+                  "MaxAttempts": 2,
+                  "BackoffRate": 2
+                }
+              ],
+              "ResultPath": "$.results.sendmode",
+              "Next": "email_success"
+            },
+            "email_success": {
+              "Type": "Task",
+              "Resource": "${email_service_arn}",
+              "Parameters" : {
+                "subject" : "Opt In subscription workflow COMPLETED Successfully!",
+                "body": {
+                   "Company.$": "$.company",
+                   "User First Name.$": "$.fname",
+                   "User Surname.$": "$.lname",
+                   "Email.$": "$.email",
+                   "Mobile Number.$": "$.mobile_number"
+                }
+              },
+              "ResultPath": "$.notifications.end.send_success",
+              "End": true
+            }
+          }
+        }
+      ]
+    },
+    "failure_email": {
+      "Type": "Task",
+      "Resource": "${email_service_arn}",
+      "Parameters": {
+        "subject": "Opt In subscription workflow FAILED!",
+        "body": {
+          "Company.$": "$.company",
+          "User First Name.$": "$.fname",
+          "User Surname.$": "$.lname",
+          "Email.$": "$.email",
+          "Mobile Number.$": "$.mobile_number"
+        }
+      },
+      "ResultPath": "$.notification.failure.send_success",
+      "next": "fail"
+    },
+    "fail": {
+      "Type": "Fail"
+    }
+  }
+}

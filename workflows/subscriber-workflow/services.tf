@@ -1,0 +1,25 @@
+module "subscriber_service" {
+  source = "../../terraform/lambda/subscriber-service"
+  project_name = "${var.workflow_name}"
+  project_version = "${var.project_version}"
+}
+
+module "notification_service" {
+  source = "../../terraform/lambda/notification-service"
+  project_name = "${var.workflow_name}"
+  project_version = "${var.project_version}"
+}
+
+module "config_service" {
+  source = "../../terraform/lambda/config-service"
+  project_name = "${var.workflow_name}"
+  project_version = "${var.project_version}"
+  s3_code_bucket = "${var.s3_code_bucket}"
+}
+
+module "invoker_service" {
+  source = "../../terraform/lambda/invoker-service"
+  project_name = "${var.workflow_name}"
+  project_version = "${var.project_version}"
+  step_function_arn = "${aws_sfn_state_machine.step_function.arn}"
+}

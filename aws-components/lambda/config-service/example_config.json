@@ -1,0 +1,20 @@
+{
+ "Company_name" : {
+    "aws_store" : "acme_beauty",
+    "mailchimp": {
+        "audience_id" : "120@ad213"
+    },
+    "sendmode" : {
+        "group_id" : "test_group"
+    }
+ },
+ "Company_name_2" : {
+    "aws_store" : "other_company",
+    "mailchimp": {
+        "audience_id" : "120@a4313"
+    },
+    "sendmode" : {
+        "group_id" : "test_group_2"
+    }
+ }
+}
