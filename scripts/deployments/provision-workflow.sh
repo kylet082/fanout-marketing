@@ -1,3 +1,7 @@
+DIR=$( pwd )
+SPLIT_PATH=(${DIR//\/EnterpriseService_v2/ })
+PROJECT_PATH="${SPLIT_PATH[0]}/EnterpriseService_v2"
+
 
 AWS_REGION="eu-west-1"
 
@@ -89,6 +93,12 @@ fi
 
 
 echo "Project Version: ${VERSION}"
+
+echo "-----------------------------------------------------------"
+echo "                Building Components "
+source ${PROJECT_PATH}/workflows/${WF_TYPE}/services/build.sh
+echo "                 Completed !"
+echo "-----------------------------------------------------------"
 
 if [ ${STATE_BUCKET} == "local" ]; then
   TF_BACKEND_TEMPLATE=terraform/base/backend-template/backend.tf

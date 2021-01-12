@@ -1,3 +1,5 @@
+#!/bin/bash
+
 DIR=$( pwd )
 SPLIT_PATH=(${DIR//\/EnterpriseService_v2/ })
 PROJECT_PATH="${SPLIT_PATH[0]}/EnterpriseService_v2"
@@ -6,14 +8,16 @@ MODULES_DIR="${PROJECT_PATH}/modules"
 
 
 function op_virtual_env {
-  if [[ "$VIRTUAL_ENV" != "" ]]
+  echo ${1}
+  if [[ -d ${1} ]]
   then
     echo "Found active Virtual Env"
+    source "${PROJECT_PATH}/venv_dep/bin/activate"
   else
     echo "Virtual Env NOT active. Creating new..."
     virtualenv "${PROJECT_PATH}/venv_dep"
 
-    /bin/bash -c ". ${PROJECT_PATH}/venv_dep/bin/activate; exec /bin/bash -i"
+    source "${PROJECT_PATH}/venv_dep/bin/activate"
   fi
 }
 

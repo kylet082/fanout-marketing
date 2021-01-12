@@ -1,4 +1,4 @@
-
+#!/bin/bash
 
 declare -A SERVICE=(
   ["logger"]="utils"

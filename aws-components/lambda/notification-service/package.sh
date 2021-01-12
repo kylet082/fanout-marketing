@@ -1,20 +1,24 @@
-DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )
+DIR=$( pwd )
+SPLIT_PATH=(${DIR//\/EnterpriseService_v2/ })
+PROJECT_PATH="${SPLIT_PATH[0]}/EnterpriseService_v2"
 
-source "$DIR/../../../scripts/common/utils.sh"
-source "${MODULES_MAPPINGS}"
+source "${PROJECT_PATH}/scripts/common/utils.sh"
+source "${PROJECT_PATH}/modules/module_mappings.sh"
 
-LAMBDA_SCRIPT="notification-serivce.py"
+SERVICE_HOME="${PROJECT_PATH}/aws-components/lambda/notification-service"
+
+LAMBDA_SCRIPT="notification-service.py"
 
 DEP_INCLUSIONS="logger"
 
 DEP_ARR=(${DEP_INCLUSIONS//,/ })
 
 # Init Py Virtual env
-op_virtual_env "${DIR}/venv"
+op_virtual_env "${PROJECT_PATH}/venv_dep"
 #
 for DEP in "${DEP_ARR[@]}"
 do
-  clean_package "${MODULES_DIR}/${SERVICE[${DEP}]}" "${DIR}" "${DEP}"
+  clean_package "${MODULES_DIR}/${SERVICE[${DEP}]}" "${SERVICE_HOME}" "${DEP}"
 done
 ##
-include_and_zip "${DIR}" "${LAMBDA_SCRIPT}"
+include_and_zip "${PROJECT_PATH}/aws-components/lambda/notification-service" "${LAMBDA_SCRIPT}"

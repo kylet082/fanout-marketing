@@ -1,3 +1,5 @@
+#!/bin/bash
+
 DIR=$( pwd )
 SPLIT_PATH=(${DIR//\/EnterpriseService_v2/ })
 PROJECT_PATH="${SPLIT_PATH[0]}/EnterpriseService_v2"
@@ -16,17 +18,13 @@ fi
 
 function build_workflow_comps() {
   TYPE=${1}
-  PATH="workflows/${TYPE}/services/service-list.sh"
-  source "${PATH}"
 
-  for c in "${components[@]}"
-  do
-    /bin/bash "${PROJECT_PATH}/aws-components/lambda/${c}/package.sh"
-  done
+  PATH="${PROJECT_PATH}/workflows/${TYPE}/services/build.sh"
+  source "${PATH}"
 }
 
 function build_single_comp() {
-  /bin/bash "./aws-components/lambda/${1}/package.sh"
+  source "./aws-components/lambda/${1}/package.sh"
 }
 
 
@@ -59,10 +57,10 @@ while [[ $# -gt 0 ]];
 echo "---------------------------------------------------------"
 
 
-if [ -z "${COMPONENT}" ] && [ ! -z "${WF_TYPE}" ]; then
+if [ ! -z "${WF_TYPE}" ]; then
   echo "one parameter need to be set!"
   build_workflow_comps ${WF_TYPE}
-elif [ ! -z "${COMPONENT}" ] && [  -z "${WF_TYPE}" ]; then
+elif [ ! -z "${COMPONENT}" ] ; then
   echo "WF type builder"
   build_single_comp ${COMPONENT}
 else

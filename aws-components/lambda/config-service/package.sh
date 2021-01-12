@@ -1,10 +1,12 @@
+#!/bin/bash
 DIR=$( pwd )
 SPLIT_PATH=(${DIR//\/EnterpriseService_v2/ })
 PROJECT_PATH="${SPLIT_PATH[0]}/EnterpriseService_v2"
 
-echo "IS Script ${PROJECT_PATH}"
 source "${PROJECT_PATH}/scripts/common/utils.sh"
 source "${PROJECT_PATH}/modules/module_mappings.sh"
+
+SERVICE_HOME="${PROJECT_PATH}/aws-components/lambda/config-service"
 
 LAMBDA_SCRIPT="config-service.py"
 
@@ -13,11 +15,11 @@ DEP_INCLUSIONS="logger, aws_utils"
 DEP_ARR=(${DEP_INCLUSIONS//,/ })
 
 # Init Py Virtual env
-op_virtual_env "${DIR}/venv"
-#
+op_virtual_env "${PROJECT_PATH}/venv_dep"
+##
 for DEP in "${DEP_ARR[@]}"
 do
-  clean_package "${MODULES_DIR}/${SERVICE[${DEP}]}" "${DIR}" "${DEP}"
+  clean_package "${MODULES_DIR}/${SERVICE[${DEP}]}" "${SERVICE_HOME}" "${DEP}"
 done
 ##
-include_and_zip "${DIR}" "${LAMBDA_SCRIPT}"
+include_and_zip "${SERVICE_HOME}" "${LAMBDA_SCRIPT}"
