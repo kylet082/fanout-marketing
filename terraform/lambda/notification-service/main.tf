@@ -1,6 +1,6 @@
 module "lambda" {
   source = "../../base/lambda"
-  project_name = "${var.project_name}"
+  workflow_name = "${var.workflow_name}"
   project_version = "${var.project_version}"
   lambda_name = "notification-service"
   lambda_handler = "notification-service.lambda_handler"
@@ -14,6 +14,6 @@ module "lambda" {
 
 module "sns" {
   source = "../../base/sns"
-  project_name = "${var.project_name}"
+  project_name = "${var.workflow_name}"
   topic_name = "email"
 }

@@ -25,30 +25,32 @@ data "template_file" "step_function_template" {
   }
 }
 
+
 resource "aws_iam_role" "states_role" {
   name = "${var.workflow_name}-stepfunction_role"
   path = "/"
+
   assume_role_policy = <<EOF
-  {
-    "Version" : "2012-10-17",
-    "Statement": [
-      {
-        "Action" : "sts:AssumeRole",
-        "Principal": {
-          "Service": [
-            "states.amazonaws.com"
-          ]
-        },
-        "Effect": "Allow"
-      }
-    ]
-  }
-  EOF
+{
+  "Version" : "2012-10-17",
+  "Statement": [
+    {
+      "Action" : "sts:AssumeRole",
+      "Principal": {
+        "Service": [
+          "states.amazonaws.com"
+        ]
+      },
+      "Effect": "Allow"
+    }
+  ]
+}
+EOF
 }
 
 resource "aws_iam_role_policy_attachment" "states_role_access" {
   role = "${aws_iam_role.states_role.name}"
-  policy_arn = "arn:aws:iam:aws:policy/service-role/AWSLambdaRole"
+  policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaRole"
 }
 
 resource "aws_sfn_state_machine" "step_function" {

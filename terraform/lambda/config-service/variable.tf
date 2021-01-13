@@ -1,5 +1,5 @@
 
-variable "project_name" {
+variable "workflow_name" {
   type = "string"
 }
 

@@ -10,7 +10,7 @@
         "workflow_name": "${workflow_name}"
       },
       "ResultPath": "$.metadata",
-      "Next": "start-processing"
+      "Next": "start_processing"
     },
     "start_processing": {
       "Type": "Parallel",
@@ -140,7 +140,7 @@
         }
       },
       "ResultPath": "$.notification.failure.send_success",
-      "next": "fail"
+      "Next": "fail"
     },
     "fail": {
       "Type": "Fail"

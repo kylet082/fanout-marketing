@@ -1,6 +1,6 @@
 module "lambda" {
   source = "../../base/lambda"
-  project_name = "${var.project_name}"
+  workflow_name = "${var.workflow_name}"
   project_version = "${var.project_version}"
   lambda_name = "config-service"
   lambda_handler = "config-service.lambda_handler"

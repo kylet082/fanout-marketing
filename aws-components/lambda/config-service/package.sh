@@ -14,6 +14,9 @@ DEP_INCLUSIONS="logger, aws_utils"
 
 DEP_ARR=(${DEP_INCLUSIONS//,/ })
 
+component_message "Config-Service"
+
+
 # Init Py Virtual env
 op_virtual_env "${PROJECT_PATH}/venv_dep"
 ##
@@ -21,5 +24,5 @@ for DEP in "${DEP_ARR[@]}"
 do
   clean_package "${MODULES_DIR}/${SERVICE[${DEP}]}" "${SERVICE_HOME}" "${DEP}"
 done
-##
+
 include_and_zip "${SERVICE_HOME}" "${LAMBDA_SCRIPT}"

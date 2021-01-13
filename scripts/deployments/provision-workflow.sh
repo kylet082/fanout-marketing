@@ -66,6 +66,11 @@ while [[ $# -gt 0 ]];
       echo "VERSION"   ${VERSION}
       shift 2
       ;;
+    --skip_build)
+      SKIP_BUILD=${2}
+      echo "SKIP_BUILD"   ${SKIP_BUILD}
+      shift 2
+      ;;
     --) shift ; break ;;
     -*|--*=)
       echo "Invalid option: -${1}" >&2
@@ -94,30 +99,32 @@ fi
 
 echo "Project Version: ${VERSION}"
 
-echo "-----------------------------------------------------------"
-echo "                Building Components "
-source ${PROJECT_PATH}/workflows/${WF_TYPE}/services/build.sh
-echo "                 Completed !"
-echo "-----------------------------------------------------------"
+if [ ! "${SKIP_BUILD}"  ]; then
+  echo "-----------------------------------------------------------"
+  echo "                Packaging Components "
+  source ${PROJECT_PATH}/workflows/${WF_TYPE}/services/build.sh
+  echo "                 Completed !"
+  echo "-----------------------------------------------------------"
+fi
 
 if [ ${STATE_BUCKET} == "local" ]; then
   TF_BACKEND_TEMPLATE=terraform/base/backend-template/backend.tf
   PATTERN="s/AWS_REGION/${AWS_REGION}/g"
 fi
 if [ ${STATE_BUCKET} == "s3" ]; then
-  TF_BACKEND_TEMPLATE=terraform/base/backend-template/backend-s3.tf
+  TF_BACKEND_TEMPLATE=${PROJECT_PATH}/terraform/base/backend-template/backend-s3.tf
   PATTERN="s/AWS_REGION/${AWS_REGION}/g;s/CODE_BUCKET/${CODE_BUCKET}/g;s/WF_TYPE/${WF_TYPE}/g;s/WF_NAME/${WF_NAME}/g;"
 fi
 
 echo "Applying pattern ${PATTERN} to ${TF_BACKEND_TEMPLATE}"
-sed ${PATTERN} < ${TF_BACKEND_TEMPLATE} > workflows/${WF_TYPE}/backend.tf
+sed ${PATTERN} < ${TF_BACKEND_TEMPLATE} > ${PROJECT_PATH}/workflows/${WF_TYPE}/backend.tf
 
-cd ./workflows/${WF_TYPE}
+cd ${PROJECT_PATH}/workflows/${WF_TYPE}
 
 terraform get
 terraform init
 terraform apply -auto-approve=true \
-  -var "workflow_name=${WORKLFLOW_NAME}" \
+  -var "workflow_name=${WF_NAME}" \
   -var "s3_code_bucket=${CODE_BUCKET}" \
   -var "project_version=${VERSION}" \
   -var "tags={workflow_type=\"${WF_TYPE}\",version=\"${VERSION}\"}"

@@ -13,6 +13,8 @@ DEP_INCLUSIONS="logger"
 
 DEP_ARR=(${DEP_INCLUSIONS//,/ })
 
+component_message "Invoker-Service"
+
 # Init Py Virtual env
 op_virtual_env "${PROJECT_PATH}/venv_dep"
 #

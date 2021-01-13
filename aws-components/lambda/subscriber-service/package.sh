@@ -13,6 +13,8 @@ DEP_INCLUSIONS="logger,aws_utils,sendmode,mailchimp"
 
 DEP_ARR=(${DEP_INCLUSIONS//,/ })
 
+component_message "Subscriber-Service"
+
 # Init Py Virtual env
 op_virtual_env "${PROJECT_PATH}/venv_dep"
 #
