@@ -6,7 +6,7 @@
       "Type": "Pass",
       "Comment": "Set the metadata information",
       "Parameters": {
-        "workflow_type": "marketing-subscription-optin",
+        "workflow_type": "subscriber-workflow",
         "workflow_name": "${workflow_name}"
       },
       "ResultPath": "$.metadata",
@@ -49,6 +49,7 @@
               "Resource": "${config_service_arn}",
               "Parameters": {
                 "company.$": "$.company",
+                "workflow_type.$": "$.metadata.workflow_type",
                 "workflow_name.$": "$.metadata.workflow_name"
               },
               "ResultPath": "$.config",

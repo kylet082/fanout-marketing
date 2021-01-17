@@ -103,6 +103,8 @@ if [ ! "${SKIP_BUILD}"  ]; then
   echo "-----------------------------------------------------------"
   echo "                Packaging Components "
   source ${PROJECT_PATH}/workflows/${WF_TYPE}/services/build.sh
+  echo " Uploading config.json "
+  aws s3 cp "${PROJECT_PATH}"/workflows/"${WF_TYPE}"/config/config.json  s3://"${CODE_BUCKET}"/"${WF_TYPE}"/"${WF_NAME}"/config/
   echo "                 Completed !"
   echo "-----------------------------------------------------------"
 fi

@@ -23,3 +23,10 @@ module "invoker_service" {
   project_version = "${var.project_version}"
   step_function_arn = "${aws_sfn_state_machine.step_function.arn}"
 }
+
+module "secrets_store" {
+  source = "../../terraform/secret_manager/subscriber_store"
+  secret_name = "${var.secret_name}"
+  secret_prefix = "${var.workflow_name}/subscriber"
+  tags = "${var.tags}"
+}

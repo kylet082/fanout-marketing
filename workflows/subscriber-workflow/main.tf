@@ -15,6 +15,7 @@ data "aws_lambda_function" "invoker_service_function" {
   function_name = "${module.invoker_service.function_name}"
 }
 
+
 data "template_file" "step_function_template" {
   template = "${file("${path.module}/templates/subscription-workflow.json")}"
   vars {
@@ -25,6 +26,19 @@ data "template_file" "step_function_template" {
   }
 }
 
+module "subscriber_apigw" {
+  source = "../../terraform/api_gateway/subscriber_rest_api"
+  aws_region = "${var.aws_region}"
+  lambda_invoke_arn = "${data.aws_lambda_function.invoker_service_function.invoke_arn}"
+  invoker_lambda_name = "${data.aws_lambda_function.invoker_service_function.function_name}"
+  project_version = "${var.project_version}"
+  stage = "${var.stage_name}"
+  workflow_name = "${var.workflow_name}"
+}
+
+data "aws_api_gateway_rest_api" "subscriber_apigw" {
+  name = "${module.subscriber_apigw.api_stage_url}"
+}
 
 resource "aws_iam_role" "states_role" {
   name = "${var.workflow_name}-stepfunction_role"
@@ -59,3 +73,4 @@ resource "aws_sfn_state_machine" "step_function" {
   definition = "${data.template_file.step_function_template.rendered}"
   tags = "${var.tags}"
 }
+
