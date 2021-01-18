@@ -19,10 +19,6 @@ variable "tags" {
   type = "map"
 }
 
-variable "secret_name" {
-  type = "string"
-  default = ""
-}
 
 variable "stage_name" {
   type = "string"

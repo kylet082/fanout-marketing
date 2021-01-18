@@ -51,3 +51,11 @@ MANIFEST
 # terraform
 .terraform/
 terraform.*
+backend.tf
+#dont exclude
+!backend-template/*
+
+#project specific exclusions
+zmisc/backend.tf
+
+

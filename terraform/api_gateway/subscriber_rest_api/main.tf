@@ -40,7 +40,26 @@ resource "aws_api_gateway_integration" "integration" {
   uri                     = "${var.lambda_invoke_arn}"
 }
 
-# Lambda
+resource "aws_api_gateway_method_response" "response_200" {
+  rest_api_id = "${aws_api_gateway_rest_api.optin_api.id}"
+  resource_id = "${aws_api_gateway_resource.invoke_resource.id}"
+  http_method = "${aws_api_gateway_method.invoke_method.http_method}"
+  status_code = "200"
+}
+
+//resource "aws_api_gateway_integration_response" "integration_response" {
+//  rest_api_id = "${aws_api_gateway_rest_api.optin_api.id}"
+//  resource_id = "${aws_api_gateway_resource.invoke_resource.id}"
+//  http_method = "${aws_api_gateway_method.invoke_method.http_method}"
+//  status_code = "${aws_api_gateway_method_response.response_200.status_code}"
+//
+//  # Transforms the backend JSON response to XML
+//  response_templates = {
+//    "application/json" = ""
+//  }
+//}
+
+# Lambda integration
 resource "aws_lambda_permission" "apigw_lambda" {
   statement_id  = "AllowExecutionFromAPIGateway"
   action        = "lambda:InvokeFunction"

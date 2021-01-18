@@ -4,7 +4,6 @@ variable "secret_name" {
 
 variable "secret_prefix" {
   type = "string"
-  default = "subscriber"
 }
 
 variable "tags" {
