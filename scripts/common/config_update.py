@@ -36,12 +36,12 @@ if __name__ == '__main__':
     json_obj = get_config(args.s3_bucket, args.s3_key)
     print(type(json))
     config = {
-        "aws_store" : args.aws_secret_name,
+        "aws_store": args.aws_secret_name,
         "mailchimp": {
-            "audience_id" : args.mailchimp_id
+            "audience_id": args.mailchimp_id
         },
-        "sendmode" : {
-            "group" : args.sendmode_group
+        "sendmode": {
+            "group": args.sendmode_group
         }
     }
 

@@ -16,6 +16,7 @@ resource "aws_api_gateway_rest_api" "optin_api" {
 resource "aws_api_gateway_deployment" "optin_api_deployment" {
   rest_api_id = "${aws_api_gateway_rest_api.optin_api.id}"
   stage_name  = "${var.stage}"
+  depends_on = ["aws_api_gateway_integration.integration"]
 }
 
 resource "aws_api_gateway_resource" "invoke_resource" {
@@ -45,19 +46,8 @@ resource "aws_api_gateway_method_response" "response_200" {
   resource_id = "${aws_api_gateway_resource.invoke_resource.id}"
   http_method = "${aws_api_gateway_method.invoke_method.http_method}"
   status_code = "200"
+  response_models = {}
 }
-
-//resource "aws_api_gateway_integration_response" "integration_response" {
-//  rest_api_id = "${aws_api_gateway_rest_api.optin_api.id}"
-//  resource_id = "${aws_api_gateway_resource.invoke_resource.id}"
-//  http_method = "${aws_api_gateway_method.invoke_method.http_method}"
-//  status_code = "${aws_api_gateway_method_response.response_200.status_code}"
-//
-//  # Transforms the backend JSON response to XML
-//  response_templates = {
-//    "application/json" = ""
-//  }
-//}
 
 # Lambda integration
 resource "aws_lambda_permission" "apigw_lambda" {

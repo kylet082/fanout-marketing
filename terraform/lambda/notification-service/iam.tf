@@ -20,6 +20,8 @@ resource "aws_iam_role_policy" "lambda_policy" {
 EOF
 }
 
+// Add sns permissions here !!
+
 resource "aws_iam_role" "lambda_role" {
   name = "${var.workflow_name}-notification-service-lambda-role"
   path = "/"

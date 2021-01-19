@@ -116,6 +116,9 @@ echo "Project Version: ${VERSION}"
 echo "Adding Configuration details to the workflow : ${WF_NAME}"
 
 S3_KEY="${WF_TYPE}/${WF_NAME}/config/config.json"
+SECRET_NAME="${WF_NAME}/subscriber/${COMPANY}"
+
+echo "Config Location : ${S3_KEY}"
 python3 ${PROJECT_PATH}/scripts/common/config_update.py --mailchimp_id "${MAILCHIMP_ID}" --sendmode_group "${SENDMODE_GROUP}" --company_name "${COMPANY}" \
   --s3_bucket "${CODE_BUCKET}" --s3_key "${S3_KEY}" --aws_secret_name "${SECRET_NAME}"
 
@@ -123,7 +126,7 @@ python3 ${PROJECT_PATH}/scripts/common/config_update.py --mailchimp_id "${MAILCH
 echo "Creating AWS Secret for Company:  ${COMPANY}"
 SECRET_STRING_PATTERN='{"sendmode_key":"SENDMODE","mailchimp_key":"MAILCHIMP"}'
 SECRET_STRING=$(echo ${SECRET_STRING_PATTERN} | sed "s/SENDMODE/${SENDMODE_KEY}/g;s/MAILCHIMP/${MAILCHIMP_KEY}/g")
-SECRET_NAME="${WF_NAME}/subscriber/${COMPANY}"
+
 
 aws secretsmanager create-secret --name ${SECRET_NAME} --secret-string ${SECRET_STRING}
 

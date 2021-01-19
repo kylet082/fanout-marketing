@@ -36,9 +36,10 @@ module "subscriber_apigw" {
   workflow_name = "${var.workflow_name}"
 }
 
-data "aws_api_gateway_rest_api" "subscriber_apigw" {
-  name = "${module.subscriber_apigw.api_stage_url}"
-}
+
+//data "aws_api_gateway_rest_api" "subscriber_apigw" {
+//  name = "${module.subscriber_apigw.api_stage_url}"
+//}
 
 resource "aws_iam_role" "states_role" {
   name = "${var.workflow_name}-stepfunction_role"

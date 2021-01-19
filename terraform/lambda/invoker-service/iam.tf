@@ -18,7 +18,7 @@ resource "aws_iam_role_policy" "lambda_policy" {
     {
         "Effect": "Allow",
         "Action": [
-              "state:StartExecution"
+              "states:StartExecution"
         ],
         "Resource": [
           "${var.step_function_arn}"

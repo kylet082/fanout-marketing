@@ -8,5 +8,6 @@ module "lambda" {
   timeout = "30"
   lambda_env = {
     VERSION = "${var.project_version}"
+    STEP_FUNCTION_ARN = "${var.step_function_arn}"
   }
 }

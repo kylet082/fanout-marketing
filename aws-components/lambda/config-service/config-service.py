@@ -26,7 +26,7 @@ logger = get_logger(__name__)
 
 def lambda_handler(event, context):
     s3_path = "{}/{}/config/config.json".format(event['workflow_type'], event['workflow_name'])
-    s3_bucket = os.environ['BUCKET']
+    s3_bucket = os.environ['S£_CODE_BUCKET']
     company = event['company']
 
     config = get_config(s3_bucket, s3_path)
