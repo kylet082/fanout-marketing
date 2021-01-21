@@ -30,6 +30,9 @@ def lambda_handler(event, context):
 def sendmode_optin(aws_store, group_id, member_info):
     config = get_aws_secret(aws_store)
 
+    # sendmode expects dd/mm/yyyy
+    member_info['birthday'] = "{}/1991".format(member_info['birthday'])
+
     client = HTTPClient() \
         .auth(config['sendmode_key'])\
         .connect()
@@ -50,6 +53,10 @@ def mailchimp_optin(aws_store, audience_id, member_info):
 
     client = MailChimpClient(config['mailchimp_key'])
     am = AudienceManager(client, audience_id)
+
+    #mailchimp expects mm/dd
+    dob = member_info['birthday'].split('/')
+    member_info['birthday'] = "{}/{}".format(dob[1], dob[0])
 
     res = am.add_to_audience(
         member_info['email'],

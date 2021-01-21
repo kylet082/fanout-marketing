@@ -15,7 +15,7 @@ class AudienceManager(object):
         self.audience_id = audience_id
 
     def add_to_audience(self, email_address, first_name, surname, dob, mobile_number):
-        params = locals()
+        params = self.__validate_param(locals())
 
         member_info = {
             "email_address": params['email_address'],
@@ -33,6 +33,7 @@ class AudienceManager(object):
         logger.info("Memeber : " + str(member_info))
         try:
             response = self.mc.client().lists.add_list_member(self.audience_id, member_info)
+            response = "t"
             logger.info('Response : ' + str(response))
         except ApiClientError as error:
             logger.error("Error: {}".format(error.text))
@@ -43,8 +44,7 @@ class AudienceManager(object):
         params.__delitem__('self')
         new_dict = dict()
         for key in params:
-            print(key)
             if params[key]:
                 print(key + " : " + params[key])
-                new_dict[key] = validator(key, params[key])
+                new_dict[key] = validator[key](params[key])
         return new_dict

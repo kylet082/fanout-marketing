@@ -1,5 +1,5 @@
 from ..http.client import HTTPClient
-from ..utils.vaildation import validator
+from ..utils.validation import validator
 import json
 
 from c_logger.service import get_logger
@@ -10,25 +10,18 @@ class OptIn(object):
 
     url = "/v2/import"
 
-    def __init__(self, mobile_number, first_name, email, dob, surname=None,
-                 address=None, town=None, county=None):
-        self.mobilenumber = mobile_number
-        self.firstname = first_name
-        self.surname = surname
-        self.address = address,
-        self.town = town
-        self.county = county
-        self.email = email
-        self.dateofbirth = dob
+    def __init__(self, mobile_number, first_name, surname, email, dob,
+                 address="", town="", county=""):
+        self.locals = locals()
 
     def submit_optin(self, http_client: HTTPClient, group):
-        # params = self.__validate_params()
+        params = self.__validate_params()
         contents = {
-            "mobilenumber": self.mobilenumber,
-            "firstname": self.firstname,
-            "surname": self.surname,
-            "dateofbirth": self.dateofbirth,
-            "email": self.email
+            "mobilenumber": params['mobile_number'],
+            "firstname": params['first_name'],
+            "surname": params['surname'],
+            "dateofbirth": params['dob'],
+            "email": params['email']
         }
 
         c = json.dumps(contents)
@@ -38,18 +31,18 @@ class OptIn(object):
         }
         header = {"Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"}
 
-        response = http_client.post_method(self.url, header, body)
+        response = None #http_client.post_method(self.url, header, body)
         logger.info("Sendmode Optin response : " + str(response.getcode()))
 
         return response
 
 
     def __validate_params(self):
-        params = vars(OptIn)
-        for key in params:
-            if not params[key]:
-                del params[key]
-            # else:
-            #     params[key] = validator(key, params[key])
-        return params
+        self.locals.__delitem__('self')
+        new_dict = dict()
+        for key in self.locals:
+            if self.locals[key]:
+                print(key + " : " + self.locals[key])
+                new_dict[key] = validator[key](self.locals[key])
+        return new_dict
 
