@@ -86,7 +86,7 @@
               "Resource": "${subscriber_service_arn}",
               "Parameters": {
                 "action": "SENDMODE",
-                "audience_id.$": "$.config.sendmode.group_id",
+                "group_id.$": "$.config.sendmode.group_id",
                 "aws_store.$": "$.config.aws_store",
                 "member_info": {
                   "first_name.$": "$.fname",

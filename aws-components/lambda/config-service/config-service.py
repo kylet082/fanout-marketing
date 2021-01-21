@@ -13,7 +13,7 @@ Example of Config :
         "audience_id" : "120@ad213"
     },
     "sendmode" : {
-        "group" : "my_test_group"
+        "group_id" : "my_test_group"
     }
  },
  "Company_name" : {
@@ -26,7 +26,7 @@ logger = get_logger(__name__)
 
 def lambda_handler(event, context):
     s3_path = "{}/{}/config/config.json".format(event['workflow_type'], event['workflow_name'])
-    s3_bucket = os.environ['S£_CODE_BUCKET']
+    s3_bucket = os.environ['S3_CODE_BUCKET']
     company = event['company']
 
     config = get_config(s3_bucket, s3_path)

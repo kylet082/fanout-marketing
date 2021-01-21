@@ -41,7 +41,7 @@ if __name__ == '__main__':
             "audience_id": args.mailchimp_id
         },
         "sendmode": {
-            "group": args.sendmode_group
+            "group_id": args.sendmode_group
         }
     }
 
