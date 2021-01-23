@@ -38,7 +38,8 @@
                   "User First Name.$": "$.fname",
                   "User Surname.$": "$.lname",
                   "Email.$": "$.email",
-                  "Mobile Number.$": "$.mobile_number"
+                  "Mobile Number.$": "$.mobile_number",
+                  "birthday.$": "$.birthday"
                 }
               },
               "ResultPath": "$.notifications.start.send_success",
@@ -117,7 +118,8 @@
                    "User First Name.$": "$.fname",
                    "User Surname.$": "$.lname",
                    "Email.$": "$.email",
-                   "Mobile Number.$": "$.mobile_number"
+                   "Mobile Number.$": "$.mobile_number",
+                   "Birthday.$": "$.birthday"
                 }
               },
               "ResultPath": "$.notifications.end.send_success",
