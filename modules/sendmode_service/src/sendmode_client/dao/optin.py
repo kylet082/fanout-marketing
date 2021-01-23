@@ -31,7 +31,7 @@ class OptIn(object):
         }
         header = {"Content-Type": "application/x-www-form-urlencoded; charset=UTF-8"}
 
-        response = None #http_client.post_method(self.url, header, body)
+        response = http_client.post_method(self.url, header, body)
         logger.info("Sendmode Optin response : " + str(response.getcode()))
 
         return response
