@@ -1,81 +1,234 @@
-<html>
-<head>
-    <title>Subscribe</title>
-    <link rel="stylesheet" href=".\css\styles.css">
-</head>
-<body>
-<section class="gp-component-id-tMJO0Wlbm gp-component" data-gp-component="block" data-gp-dnd="" data-gp-style=""
-         data-gp-block="true" data-gp-component-id="tMJO0Wlbm" style="" tabindex="0"><a name="tMJO0Wlbm"
-                                                                                        data-gp-block-anchor=""></a>
-    <div class="" data-section-overlay=""></div>
-    <div class="gp-component-id-Dk0PFalJg1 gp-component" data-gp-container="" data-gp-style=""
-         data-gp-component-id="Dk0PFalJg1" data-gp-component="null" style="" tabindex="0">
-        <div class="gp-component-id-CZaQ7EUAd gp-component" data-gp-dnd="" data-gp-style=""
-             data-gp-component="layout-2-2" data-gp-component-id="CZaQ7EUAd" tabindex="0">
-            <div class="gp-component-id-ZhMu_oicYd">
-                <div class="gp-component-id-_6H6fxaVb0" data-gp-grid-col="">
-                    <div class="gp-component-id-tDPcA4hmSC gp-component" data-gp-container="" data-gp-style=""
-                         data-gp-component-id="tDPcA4hmSC" data-gp-component="null" style="" tabindex="0">
-                        <div data-gp-dnd="" data-gp-style="" class="gp-component gp-component-id-ajEx0FFTv"
-                             data-gp-component="video-youtube" data-gp-component-id="ajEx0FFTv" tabindex="0">
-                            <div class="gp-component-id-I6M5LEhQq">
-                                <iframe src="about:blank"
-                                        data-gp-vembed-id="qoMsgxrFq" allow="autoplay" frameborder="0" scrolling="no"
-                                        marginheight="0" marginwidth="0" class="gp-component-id-ZtseZ3uKXG"></iframe>
+<!DOCTYPE html>
+<html lang="en">
 
-                            </div>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Acme Beauty</title>
+    <link rel="icon" href="./img/logo.png">
+    <link rel="stylesheet" href="./css/bootstrap.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <link rel="stylesheet" href="./css/index-style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.0.3/css/font-awesome.min.css">
+</head>
+
+<body>
+    <section>
+        <div id="alert-overlay">
+            <div class="alert-box" id="alert-box">
+                <div>
+                    <p>This website uses cookies in ordr to offer you the most relevant information. Please accept
+                        cookies for
+                        optimal performance</p>
+                </div>
+                <div class="btn-sec-alert">
+                    <button class="btn" onclick="alertAction()">Accept</button> <a href="">More information</a>
+                </div>
+            </div>
+        </div>
+        <img src="./img/Vector 1.png" class="bg-img" alt="">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-7 col-sm-12">
+                    <div class="logo">
+                        <img src="./img/logo.png" class="my-3" width="250px"
+                            style="margin-left:50%;transform: translateX(-50%);">
+                    </div>
+                    <div class="form-div">
+                        <h1 class="text-center">Form</h1>
+                        <div class="" id="alert">
                         </div>
+                        <form id="form" action="" method="post">
+                            <div class="form-group">
+                                <label for="exampleInputEmail1">Email address</label>
+                                <input type="email" class="form-control" id="email" name="email" placeholder=""
+                                    value="">
+                                <div class="alerts" id="email-alert">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputName">First Name</label>
+                                <input type="text" class="form-control" name="fname" id="fname" placeholder="" value="">
+                                <div class="alerts" id="fname-alert">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputsName">Surname</label>
+                                <input type="text" class="form-control" name="lname" id="lname" placeholder="" value="">
+                                <div class="alerts" id="lname-alert">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="exampleInputphone">Phone</label>
+                                <input type="number" class="form-control" name="mobile_number" id="mobile_number"
+                                    placeholder="08XXXXXXXX" value="">
+                                <div class="alerts" id="mobile_number-alert">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="datepicker">Date of Birth</label>
+                                <!-- <input type="text" id="datepicker" class="form-control">
+                            <small id="bdayval" class="form-text text-muted"></small> -->
+                                <!-- <div class="input-group">
+                              <input type="text" name="date1" id="date1" class="form-control" placeholder="DD/MM" data-select="date" autocomplete ="off">
+                              <span class="input-group-btn">
+                                <button class="calendar-btn" type="button" data-toggle="select"><i class="fa fa-calendar"></i></button>
+                              </span>
+                            </div> -->
+
+                                <input type="text" class="form-control" name="datestr" id="birthday_txt" placeholder="Month/DD"
+                                    value="" autocomplete="off">
+                                <input type="hidden" class="form-control" name="birthday" id="birthday"
+                                    placeholder="DD/MM" value="" autocomplete="off">
+                                <div class="alerts" id="birthday-alert">
+                                </div>
+                            </div>
+                            <div class="cbox">
+                                <input type="checkbox" name="check" id="check" />
+                                <label for="check">I Agree the terms and conditions</label>
+                            </div>
+                            <!-- <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" name="check" id="check">
+                            <label class="custom-control-label" for="check">I Agree the terms and conditions</label>
+                          </div> -->
+                            <!-- <label class="checkbox"> 
+                            <input type="checkbox" name="check"class="" id="check">
+                           
+                          </label> -->
+                            <label>
+                                <div class="alerts" id="check-alert"></div>
+                            </label>
+                            <div class="text-center my-4">
+                                <input type="submit" name="submit" id="submit-btn" class="submit-btn" value="Subscribe">
+                            </div>
+                        </form>
                     </div>
                 </div>
-                <div class="gp-component-id-JeyyXTDRPt" data-gp-grid-col="">
-                    <div class="gp-component-id-P9N7voD__w gp-component" data-gp-container="" data-gp-style=""
-                         data-gp-component-id="P9N7voD__w" style="" data-gp-component="null" tabindex="0">
-                        <form id="user-form" class="gp-component gp-component-id-ycfAanHEX" action="" method=""
-                              data-gp-mailchimp-form="ycfAanHEX" data-gp-dnd="" data-gp-style=""
-                              data-gp-component="form-container" data-gp-component-id="ycfAanHEX" novalidate="true"
-                              tabindex="0">
-                            <div class="" data-gp-container="" tabindex="0">
-                                <div class="gp-component gp-component-id-0OAxtOTbH" data-gp-dnd="" data-gp-style=""
-                                     data-gp-component="input" data-gp-component-id="0OAxtOTbH" tabindex="0">
-                                    <input id="fname" name="fname" type="text" placeholder="First Name"
-                                           class="gp-component-id-1PnqD7wDg" required="">
-                                </div>
-                                <div class="gp-component gp-component-id-0OAxtOTbH" data-gp-dnd="" data-gp-style=""
-                                     data-gp-component="input" data-gp-component-id="0OAxtOTbH" tabindex="0">
-                                    <input id="lname" name="lname" type="text" placeholder="Last Name"
-                                           class="gp-component-id-1PnqD7wDg" required="">
-                                </div>
-                                <div class="gp-component gp-component-id-NBb7HM0Ct" data-gp-dnd="" data-gp-style=""
-                                     data-gp-component="input" data-gp-component-id="NBb7HM0Ct" tabindex="0" style="">
-                                    <input id="email" name="email" type="email" placeholder="Email"
-                                           class="gp-component-id-6gr7bY_PW" required="">
-                                </div>
-                                <div class="form-control gp-component gp-component-id-Y8cyxiBr6" data-gp-dnd=""
-                                     data-gp-style="" data-gp-component="input" data-gp-component-id="Y8cyxiBr6"
-                                     tabindex="0">
-                                    <input id="mobile_number" name="mobile_number" type="" placeholder="Phone Number"
-                                           class="gp-component-id-yEWzOkzFO">
-                                </div>
-                                <div class="form-control gp-component gp-component-id-Y8cyxiBr7" data-gp-dnd=""
-                                     data-gp-style="" data-gp-component="input" data-gp-component-id="Y8cyxiBr7"
-                                     tabindex="0">
-                                    <input id="birthday" name="birthday" type="" placeholder="Birthday"
-                                           class="gp-component-id-yEWzOkzF1">
-                                </div>
-                                <button type="submit" class="gp-component gp-component-id-r8ZtaN4iY" data-gp-dnd=""
-                                        data-gp-style="" data-gp-component="form-submit"
-                                        data-gp-component-id="r8ZtaN4iY">Submit
-                                </button>
-                            </div>
-
-                        </form>
+                <div class="col-md-5 col-sm-12">
+                    <div mbsc-form>
+                        <div id="demo"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Modal -->
+    <div class="modal" id="mymodal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Date of Birth</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="row text-center" style="padding: 0 5%;color:#511D7A;">
+                        <div class="col">
+                            <div class="arrow-top"><i data-feather="chevron-up"></i></div>
+                        </div>
+                        <div class="col">
+                            <div class="arrow-top"><i data-feather="chevron-up"></i></div>
+                        </div>
+                    </div>
+                    <div class="row date-row" style="border-radius:20px;">
+                        <div class="col-date scroll-div " id="month-col"
+                            style="height: 100px;overflow-y: scroll;position:reletive;border-top-left-radius:20px;border-bottom-left-radius:20px;">
+                            <ul>
+                                <li><button type="button" id="1" onclick="getMonth(01,'01');">January</button></li>
+                                <li><button type="button" id="2" onclick="getMonth(02,'02');">February</button></li>
+                                <li><button type="button" id="3" onclick="getMonth(03,'03');">March</button></li>
+                                <li><button type="button" id="4" onclick="getMonth(04,'04');">April</button></li>
+                                <li><button type="button" id="5" onclick="getMonth(05,'05');">May</button></li>
+                                <li><button type="button" id="6" onclick="getMonth(06,'06');">June</button></li>
+                                <li><button type="button" id="7" onclick="getMonth(07,'07');">July</button></li>
+                                <li><button type="button" id="8" onclick="getMonth(08,'08');">August</button></li>
+                                <li><button type="button" id="9" onclick="getMonth(09,'09');">September</button></li>
+                                <li><button type="button" id="10" onclick="getMonth(10,'10');">October</button></li>
+                                <li><button type="button" id="11" onclick="getMonth(11,'11');">November</button></li>
+                                <li><button type="button" id="12" onclick="getMonth(12,'12');">December</button></li>
+                            </ul>
+                        </div>
+                        <div class="col-date scroll-div" id="date-col"
+                            style="height: 100px;overflow-y: scroll;position:reletive;border-top-right-radius:20px;border-bottom-right-radius:20px;"
+                            disabled>
+                            <ul>
+                                <li><button type="button" onclick="getDate(1,'01');">01</button></li>
+                                <li><button type="button" onclick="getDate(2,'02');">02</button></li>
+                                <li><button type="button" onclick="getDate(3,'03');">03</button></li>
+                                <li><button type="button" onclick="getDate(4,'04');">04</button></li>
+                                <li><button type="button" onclick="getDate(5,'05');">05</button></li>
+                                <li><button type="button" onclick="getDate(6,'06');">06</button></li>
+                                <li><button type="button" onclick="getDate(7,'07');">07</button></li>
+                                <li><button type="button" onclick="getDate(8,'08');">08</button></li>
+                                <li><button type="button" onclick="getDate(9,'09');">09</button></li>
+                                <li><button type="button" onclick="getDate(10,'10');">10</button></li>
+                                <li><button type="button" onclick="getDate(11,'11');">11</button></li>
+                                <li><button type="button" onclick="getDate(12,'12');">12</button></li>
+                                <li><button type="button" onclick="getDate(13,'13');">13</button></li>
+                                <li><button type="button" onclick="getDate(14,'14');">14</button></li>
+                                <li><button type="button" onclick="getDate(15,'15');">15</button></li>
+                                <li><button type="button" onclick="getDate(16,'16');">16</button></li>
+                                <li><button type="button" onclick="getDate(17,'17');">17</button></li>
+                                <li><button type="button" onclick="getDate(18,'18');">18</button></li>
+                                <li><button type="button" onclick="getDate(19,'19');">19</button></li>
+                                <li><button type="button" onclick="getDate(20,'20');">20</button></li>
+                                <li><button type="button" onclick="getDate(21,'21');">21</button></li>
+                                <li><button type="button" onclick="getDate(22,'22');">22</button></li>
+                                <li><button type="button" onclick="getDate(23,'23');">23</button></li>
+                                <li><button type="button" onclick="getDate(24,'24');">24</button></li>
+                                <li><button type="button" onclick="getDate(25,'25');">25</button></li>
+                                <li><button type="button" onclick="getDate(26,'26');">26</button></li>
+                                <li><button type="button" onclick="getDate(27,'27');">27</button></li>
+                                <li><button type="button" onclick="getDate(28,'28');">28</button></li>
+                                <li><button type="button" onclick="getDate(29,'29');">29</button></li>
+                                <li><button type="button" id="daysone" onclick="getDate(30,'30');">30</button></li>
+                                <li><button type="button" id="daystwo" onclick="getDate(31,'31');">31</button></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="row text-center" style="padding: 0 5%;color:#511D7A;">
+                        <div class="col">
+                            <div class="arrow-top"><i data-feather="chevron-down"></i></div>
+                        </div>
+                        <div class="col">
+                            <div class="arrow-top"><i data-feather="chevron-down"></i></div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col text-secondary">
+                            <button type="button" class="submit-btn m-3" data-dismiss="modal"
+                                style="float:right">confirm</button>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</section>
+    <!-- Modal end -->
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+    <script src="js/jquery.firstVisitPopup.js"></script>
+    <script src="js/validations.js"></script>
+    <script src="./js/comms.js"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+    <script>
+        feather.replace()
+    </script>
+    <!-- <script>
+        $(function () {
+          $('#alert-overlay').firstVisitPopup({
+            cookieName : 'homepage',
+            showAgainSelector: '#show-message'
+          });
+        });
+      </script>-->
 </body>
 
-<script src=".\scripts\comms.js"></script>
-<script id="script-7-Kv9AZU6r">window.isFreeUser = false</script>
+</html>

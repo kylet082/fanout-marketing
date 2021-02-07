@@ -1,0 +1,182 @@
+*{
+    box-sizing: border-box;
+}
+* ::selection {
+    background: #75519100;
+  }
+*::-webkit-scrollbar {
+  width: 12px;               /* width of the entire scrollbar */
+}
+
+*::-webkit-scrollbar-track {
+  background: rgba(150, 129, 91, 0);        /* color of the tracking area */
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.075);    /* color of the scroll thumb */
+  border-radius: 20px;       /* roundness of the scroll thumb */
+  border: 3px solid rgba(255, 166, 0, 0);  /* creates padding around scroll thumb */
+} 
+
+section{
+    position: relative;
+    padding-bottom:4% ;
+    min-height: 100vh;
+}
+.bg-img{
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+.form-div{
+    background: white;
+    border-radius:27px;
+    padding:10%;
+    /* Rectangle 1 */
+    background: #FFFFFF;
+    box-shadow: 5px 5px 10px 5px rgba(0, 0, 0, 0.25);
+    border-radius: 27px;
+
+}
+h1{
+    color: #755191;
+}
+.alert-box{
+   /* Rectangle 7 */
+   padding: 0 10px;
+    position: absolute;
+    width: 100%;
+    min-height: 200px;
+    left: 0;
+    right: 0;
+    top: 70vh;
+    z-index: 200;
+    text-align: center;
+    background: linear-gradient(180deg, #511D7A 0%, #7C27BF 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+}
+.alert-box p{
+    color: white;
+}
+.alert-box button{
+    color: #280E3D;
+    border: none;
+    background: white;
+    padding: 10px 55px;
+    text-align: center;
+}
+.alert-box a{
+    color: white;
+    text-decoration: underline;
+    margin: 0 50px;
+}
+.submit-btn{
+    margin-top: 25px;
+    background: #6F498D;
+    border-radius: 20px;
+    border :none;
+    padding: 10px 25px;
+    color: white;
+
+}
+.calendar-btn{
+  background: #6F498D;
+  
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+    border :none;
+    padding: 7px 25px;
+    color: white;
+}
+.ui-datepicker-year option:hover {
+    background-color: #755191 !important;
+  }
+  @media screen and (max-width: 500px) {
+    .btn-sec-alert{
+        display: flex;
+        flex-direction: column;
+    }
+  }
+
+  /* The container */
+.checkbox-container{
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+  
+  /* Hide the browser's default checkbox */
+  .checkbox-container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+  }
+  
+  /* Create a custom checkbox */
+  .checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 20px;
+    width: 20px;
+    background-color: #eee;
+  }
+  
+  /* On mouse-over, add a grey background color */
+  .checkbox-container:hover input ~ .checkmark {
+    background-color: #ccc;
+  }
+  
+  /* When the checkbox is checked, add a blue background */
+  .checkbox-container input:checked ~ .checkmark {
+    background-color: #755191;
+  }
+  
+  /* Create the checkmark/indicator (hidden when not checked) */
+  /* .checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+  } */
+  
+  /* Show the checkmark when checked */
+  .checkbox-container input:checked ~ .checkmark:after {
+    display: block;
+  }
+  
+  /* Style the checkmark/indicator */
+  .checkbox-container .checkmark:after {
+    left: 9px;
+    top: 5px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 3px 3px 0;
+    -webkit-transform: rotate(45deg);
+    -ms-transform: rotate(45deg);
+    transform: rotate(45deg);
+  }
+  .form-control{
+    border-radius: 20px;
+  }
+  .errors{
+      background:#755191;
+      text-align:center;
+      padding:5px 10px;
+      color:white;
+      font-weight:bold;
+      margin:10px 0;
+      border-radius:20px;
+  }
