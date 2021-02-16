@@ -78,7 +78,7 @@ elif [ "$STATE_BUCKET" != "local" ] && [ "$STATE_BUCKET" != "s3" ]; then
 fi
 
 
-BACKEND_FILES=$( aws s3api list-objects-v2 --bucket kgt-dev-code --prefix ${WF_TYPE}/${WF_NAME}/terraform/state --query 'Contents[].Key' --output text )
+BACKEND_FILES=$( aws s3api list-objects-v2 --bucket ${STATE_BUCKET} --prefix ${WF_TYPE}/${WF_NAME}/terraform/state --query 'Contents[].Key' --output text )
 # collect all the aws secrets to be destroyed here as well.
 
 # destroy all workflow states

@@ -11,8 +11,13 @@ def lambda_handler(event, context):
 
     start_step_function(body)
 
-    return {
-        'statusCode': 200
+    return {'statusCode': 200,
+    'headers': {
+        'Access-Control-Allow-Origin' : '*',
+        'Access-Control-Allow-Headers':'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token',
+        'Access-Control-Allow-Credentials' : True,
+        'Content-Type': 'application/json'
+        }
     }
 
 

@@ -3,6 +3,6 @@
 ./scripts/deployments/destroy-workflow.sh --workflow_type subscriber --workflow_name qa-v6-wf --code_bucket kgt-dev-code
 
 # Provisioning workflows
-./scripts/deployments/provision-workflow.sh --workflow_type subscriber --workflow_name qa-v5-wf --code_bucket kgt-dev-code --skip_build true
+./scripts/deployments/provision-workflow.sh --workflow_type subscriber --workflow_name qa-v5-wf --code_bucket kgt-dev-code
 
 # Adding new Secrets

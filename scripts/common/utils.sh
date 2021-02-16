@@ -15,7 +15,7 @@ function op_virtual_env {
     source "${PROJECT_PATH}/venv_dep/bin/activate"
   else
     echo "Virtual Env NOT active. Creating new..."
-    virtualenv "${PROJECT_PATH}/venv_dep"
+    virtualenv "${PROJECT_PATH}/venv_dep/"
 
     source "${PROJECT_PATH}/venv_dep/bin/activate"
   fi
