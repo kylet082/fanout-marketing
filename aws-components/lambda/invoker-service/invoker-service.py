@@ -17,7 +17,8 @@ def lambda_handler(event, context):
         'Access-Control-Allow-Headers':'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token',
         'Access-Control-Allow-Credentials' : True,
         'Content-Type': 'application/json'
-        }
+        },
+    'body': '{"status": "success"}'
     }
 
 

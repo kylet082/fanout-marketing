@@ -54,6 +54,10 @@ resource "aws_api_gateway_integration" "options_integration" {
     resource_id   = "${aws_api_gateway_resource.invoke_resource.id}"
     http_method   = "${aws_api_gateway_method.cors_options_method.http_method}"
     type          = "MOCK"
+    passthrough_behavior    = "WHEN_NO_MATCH"
+    request_templates = {
+      "application/json" = "{\"statusCode\": 200}"
+    }
     depends_on = ["aws_api_gateway_method.cors_options_method"]
 }
 
@@ -67,6 +71,7 @@ resource "aws_api_gateway_integration_response" "options_integration_response" {
         "method.response.header.Access-Control-Allow-Methods" = "'OPTIONS,POST'",
         "method.response.header.Access-Control-Allow-Origin" = "'*'"
     }
+
     depends_on = ["aws_api_gateway_method_response.options_200"]
 }
 
@@ -94,6 +99,7 @@ resource "aws_api_gateway_method_response" "response_200" {
   response_models = {
     "application/json" = "Empty"
   }
+  response_parameters = { "method.response.header.Access-Control-Allow-Origin" = true }
 }
 
 # Lambda integration
