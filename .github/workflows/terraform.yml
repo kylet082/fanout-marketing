@@ -75,24 +75,16 @@ jobs:
       uses : actions/setup-python@v2
       with : 
         python-version : 3.8
-#         cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
 
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
-    - name: Test Modules
+    - name: Test Terraform
       run: |
-        python -v
-        python3 -v
-
-    # Checks that all Terraform configuration files adhere to a canonical format
-#     - name: Terraform Format
-#       run: terraform fmt -check
-
-#     # Generates an execution plan for Terraform
-#     - name: Terraform Plan
-#       run: terraform plan
-
-#       # On push to develop, build or change infrastructure according to Terraform configuration files
-#       # Note: It is recommended to set up a required "strict" status check in your repository for "Terraform Cloud". See the documentation on "strict" required status checks for more information: https://help.github.com/en/github/administering-a-repository/types-of-required-status-checks
-#     - name: Terraform Apply
-#       if: github.ref == 'refs/heads/develop' && github.event_name == 'push'
-#       run: terraform apply -auto-approve
+        terraform -v
+    
+    - name: Test Python
+      run: |
+        pip -v
+        pip install jsonpath-ng
+        
+    - name: Check if make Installed
+      run: make -v
