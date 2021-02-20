@@ -80,8 +80,8 @@ jobs:
     # Initialize a new or existing Terraform working directory by creating initial files, loading any remote state, downloading modules, etc.
     - name: Test Modules
       run: |
-        terraform init
         python -v
+        python3 -v
 
     # Checks that all Terraform configuration files adhere to a canonical format
 #     - name: Terraform Format
