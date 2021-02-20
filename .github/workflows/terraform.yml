@@ -84,7 +84,14 @@ jobs:
     - name: Test Python
       run: |
         pip -v
-        pip install jsonpath-ng
+        
+    - name: Dir Check
+      run: |
+        ls -al
+        
+    - name: Update Perms
+      run: |
+        chmod 755 -R ./
         
     - name: Build a Lambda Component
       run: ./scripts/deployments/build.sh --component config-service
