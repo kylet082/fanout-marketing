@@ -86,5 +86,5 @@ jobs:
         pip -v
         pip install jsonpath-ng
         
-    - name: Check if make Installed
-      run: make -v
+    - name: Build a Lambda Component
+      run: ./scripts/deployments/build.sh --component config-service
