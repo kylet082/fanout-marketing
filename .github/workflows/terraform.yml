@@ -85,17 +85,17 @@ jobs:
       run: |
         pip -v
         
+    - name: Update Perms
+      run: |
+        chmod 755 -R ./*    
+        
     - name: Dir Check
       run: |
         ls -al
-        
-    - name: Update Perms
-      run: |
-        chmod 755 -R ./*
     
     - name: Check Perms
       run: |
-        chmod 755 -R ./*
+        pwd
     
     - name: Build a Lambda Component
       run: ./scripts/deployments/build.sh --component config-service
