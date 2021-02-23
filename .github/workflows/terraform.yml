@@ -87,7 +87,7 @@ jobs:
         
     - name: Update Perms
       run: |
-        chmod 755 -R ./*    
+        sudo chmod 755 -R ./*    
         
     - name: Dir Check
       run: |
@@ -98,4 +98,4 @@ jobs:
         pwd
     
     - name: Build a Lambda Component
-      run: ./scripts/deployments/build.sh --component config-service
+      run: ./scripts/deployments/build.sh
