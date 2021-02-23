@@ -91,7 +91,11 @@ jobs:
         
     - name: Update Perms
       run: |
-        chmod 755 -R ./
-        
+        chmod 755 -R ./*
+    
+    - name: Check Perms
+      run: |
+        chmod 755 -R ./*
+    
     - name: Build a Lambda Component
       run: ./scripts/deployments/build.sh --component config-service
