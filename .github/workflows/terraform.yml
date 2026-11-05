@@ -44,18 +44,21 @@
 
 name: 'Terraform'
 
+# Disabled: automatic triggers are off until CI is built out (see README roadmap).
+# To re-enable, restore:
+#   push:
+#     branches:
+#     - develop
+#   pull_request:
 on:
-  push:
-    branches:
-    - develop
-  pull_request:
+  workflow_dispatch:
 
 jobs:
   terraform:
     name: 'Terraform'
     runs-on: ubuntu-latest
 
-    # Use the Bash shell regardless whether the GitHub Actions runner is ubuntu-latest, macos-latest, or windows-latest
+    # Use the Bash shell for all run steps
     defaults:
       run:
         shell: bash
