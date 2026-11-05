@@ -44,11 +44,14 @@
 
 name: 'Terraform'
 
+# Disabled: automatic triggers are off until CI is built out (see README roadmap).
+# To re-enable, restore:
+#   push:
+#     branches:
+#     - develop
+#   pull_request:
 on:
-  push:
-    branches:
-    - develop
-  pull_request:
+  workflow_dispatch:
 
 jobs:
   terraform:
