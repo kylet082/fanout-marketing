@@ -285,10 +285,12 @@ aws sns subscribe --topic-arn <topic-arn> --protocol email --notification-endpoi
   --workflow_type subscriber \
   --workflow_name <name> \
   --company_name <company> \
-  --mailchimp_key <key> --mailchimp_audience_id <audience-id> \
-  --sendmode_key <key> --sendmode_group <group-id> \
+  --mailchimp_audience_id <audience-id> \
+  --sendmode_group <group-id> \
   --code_bucket <bucket>
 ```
+
+The script asks for the Mailchimp and SendMode API keys and hides what you type. For non-interactive use, set `MAILCHIMP_KEY` and `SENDMODE_KEY` in the environment instead. The keys are never passed as arguments or printed, and they reach AWS through a temporary file that only you can read.
 
 ### 4. Point a landing page at the API
 
