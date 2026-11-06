@@ -3,8 +3,7 @@
 # built and packaged for deployment
 #
 DIR=$( pwd )
-SPLIT_PATH=(${DIR//\/EnterpriseService_v2/ })
-PROJECT_PATH="${SPLIT_PATH[0]}/EnterpriseService_v2"
+PROJECT_PATH="$(git rev-parse --show-toplevel)"
 
 
 source "${PROJECT_PATH}/aws-components/lambda/config-service/package.sh"

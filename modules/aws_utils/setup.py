@@ -10,7 +10,7 @@ setuptools.setup(
     author_email="kyletruebody@gmail.com",
     description="",
     long_description=long_description,
-    url="https://github.com/KyleT082/EnterpriseServices/tree/develop/modules/email-services",
+    url="https://github.com/kylet082/fanout-marketing/tree/main/modules/aws_utils",
     packages=setuptools.find_packages(
         where="src",
         include=['*'],

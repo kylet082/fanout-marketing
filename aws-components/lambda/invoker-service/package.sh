@@ -1,6 +1,5 @@
 DIR=$( pwd )
-SPLIT_PATH=(${DIR//\/EnterpriseService_v2/ })
-PROJECT_PATH="${SPLIT_PATH[0]}/EnterpriseService_v2"
+PROJECT_PATH="$(git rev-parse --show-toplevel)"
 
 source "${PROJECT_PATH}/scripts/common/utils.sh"
 source "${PROJECT_PATH}/modules/module_mappings.sh"

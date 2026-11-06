@@ -1,8 +1,8 @@
-# EnterpriseService_v2
+# Fanout Marketing
 
 **A low-cost, event-driven marketing platform for small businesses, built on AWS serverless services.**
 
-Small businesses want the same things larger companies get from marketing software, such as campaigns, company updates and personalised birthday messages. They rarely have the budget for expensive marketing platforms. EnterpriseService_v2 is a prototype that offers those features as event-driven workflows on AWS Lambda and Step Functions. It costs almost nothing when idle and grows with usage, and one deployment can serve several businesses.
+Small businesses want the same things larger companies get from marketing software, such as campaigns, company updates and personalised birthday messages. They rarely have the budget for expensive marketing platforms. Fanout Marketing is a prototype that offers those features as event-driven workflows on AWS Lambda and Step Functions. It costs almost nothing when idle and grows with usage, and one deployment can serve several businesses.
 
 > **Status:** Prototype, not currently deployed. It was piloted with a real customer, Acme Beauty ([see below](#pilot-acme-beauty)), and is now kept as a portfolio project and base for further development.
 
@@ -207,11 +207,11 @@ Development is done on Linux. The commands below are for Debian/Ubuntu; on other
 
 ### 1. Clone the repository
 
-The scripts work out the project root from the current path, so the checkout folder **must be named `EnterpriseService_v2`**, and scripts must be run from inside it.
+The scripts find the project root with `git rev-parse`, so they must be run from inside the checkout. The folder can have any name.
 
 ```bash
-git clone <repo-url> EnterpriseService_v2
-cd EnterpriseService_v2
+git clone https://github.com/kylet082/fanout-marketing.git
+cd fanout-marketing
 ```
 
 ### 2. Install system packages
