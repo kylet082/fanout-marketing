@@ -16,7 +16,7 @@ resource "aws_lambda_function" "lambda" {
     create="15m"
   }
 
-  // TODO :  add vpc connections configs
+  // TODO : add vpc connections configs (optional, off by default; only needed if lambdas must reach private resources)
 
   environment {
     variables = "${var.lambda_env}"

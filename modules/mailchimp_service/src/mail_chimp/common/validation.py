@@ -1,31 +1,16 @@
-from functools import partial
-
-def __name(value):
-    print("val name" + value)
-    return str(value)
-
-def __surname(value):
-    print("val name" + value)
-    return str(value)
-
-def __dob(value):
-    print("val dob")
-    return str(value)
-
-def __mobile_number(value):
-    print("val mobile num")
-    return value
-
-def __email(value):
-    print("val email" + value)
-    return value
-
+def _as_str(value):
+    return "" if value is None else str(value).strip()
 
 
 validator = {
-    "first_name": __name,
-    "surname": __surname,
-    "dob": __dob,
-    "mobile_number": __mobile_number,
-    "email_address": __email
-    }
+    "first_name": _as_str,
+    "surname": _as_str,
+    "dob": _as_str,
+    "mobile_number": _as_str,
+    "email_address": _as_str,
+}
+
+
+def validate(params):
+    """Run each param through its validator. Missing values become ""."""
+    return {key: validator[key](value) for key, value in params.items()}

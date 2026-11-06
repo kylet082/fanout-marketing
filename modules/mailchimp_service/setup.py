@@ -1,6 +1,6 @@
 import setuptools
 
-with open("README.md", 'r') as fh:
+with open("readme.md", 'r') as fh:
     long_description = fh.read()
 
 setuptools.setup(
@@ -8,6 +8,7 @@ setuptools.setup(
     version="0.0.1-beta",
     author="Kyle Truebody",
     author_email="kyletruebody@gmail.com",
+    license="MIT",
     description="Expose Mail Chimp client interface",
     long_description=long_description,
     url="https://github.com/kylet082/fanout-marketing/tree/main/modules/mailchimp_service",
@@ -21,9 +22,9 @@ setuptools.setup(
         'mailchimp-marketing'
     ],
     classifiers=[
-        "Programming Language :: Python 3",
-        "License :: TBD :: TBD",
-        "Opertaing System :: OS Independent"
+        "Programming Language :: Python :: 3",
+        "License :: OSI Approved :: MIT License",
+        "Operating System :: OS Independent"
     ],
     python_requires='>=3.8'
 )

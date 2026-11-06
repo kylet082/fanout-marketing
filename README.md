@@ -4,7 +4,7 @@
 
 Small businesses want the same things larger companies get from marketing software, such as campaigns, company updates and personalised birthday messages. They rarely have the budget for expensive marketing platforms. Fanout Marketing is a prototype that offers those features as event-driven workflows on AWS Lambda and Step Functions. It costs almost nothing when idle and grows with usage, and one deployment can serve several businesses.
 
-> **Status:** Prototype, not currently deployed. It was piloted with a real customer, Acme Beauty ([see below](#pilot-acme-beauty)), and is now kept as a portfolio project and base for further development.
+> **Status:** Prototype, not currently deployed. It was piloted with a real small business ([see below](#pilot-birthday-campaign)), and is now kept as a portfolio project and base for further development.
 
 ---
 
@@ -19,7 +19,8 @@ Small businesses want the same things larger companies get from marketing softwa
 - [Repository structure](#repository-structure)
 - [Getting started](#getting-started)
 - [Deploying and operating a workflow](#deploying-and-operating-a-workflow)
-- [Pilot: Acme Beauty](#pilot-acme-beauty)
+- [Pilot: birthday campaign](#pilot-birthday-campaign)
+- [License](#license)
 - [Roadmap](#roadmap)
 
 ---
@@ -79,7 +80,7 @@ flowchart LR
 
 | Component | Type | Responsibility |
 | --- | --- | --- |
-| `invoker-service` | Lambda | Receives the API request, starts the Step Functions run, and returns `200` straight away. |
+| `invoker-service` | Lambda | Receives the API request, checks the required fields are present, starts the Step Functions run, and returns `200` straight away. Returns `400` for a bad request and `500` if the run can't be started. |
 | `config-service` | Lambda | Loads the requesting client's settings (secret name, Mailchimp audience, SendMode group) from S3. |
 | `subscriber-service` | Lambda | Adds the subscriber to a marketing channel. The `action` field (`MAILCHIMP` or `SENDMODE`) chooses which one. |
 | `notification-service` | Lambda | Formats an event and publishes it to the workflow's SNS email topic. |
@@ -152,6 +153,10 @@ Code that more than one Lambda uses is kept in `modules/` as small installable P
 | `mailchimp_service` | `mail_chimp` | Mailchimp Marketing API client and audience management |
 | `sendmode_service` | `sendmode_client` | SendMode REST client and opt-in import |
 
+All Lambdas and modules log through `c_logger.service.get_logger`. Each line includes the Lambda request ID. The log level comes from the `LOG_LEVEL` environment variable (default `INFO`). Subscriber personal data (names, emails, phone numbers, birthdays) is only logged at `DEBUG`.
+
+Channel failures raise typed errors (`MailChimpError`, `SendmodeError`), so the workflow's retries and failure handling run instead of the sign-up silently succeeding.
+
 Each Lambda's `package.sh` lists the modules it depends on. At build time those modules are built as wheels, installed into the Lambda's `build/` folder, and zipped into `deployment_package.zip`. Packages that the Lambda runtime already provides, such as `boto3`, are left out.
 
 ## Tech stack
@@ -182,7 +187,7 @@ Each Lambda's `package.sh` lists the modules it depends on. At build time those 
 ├── scripts/
 │   ├── common/                 # Shared bash helpers and the config update tool
 │   └── deployments/            # build / provision / destroy / add-client-config
-├── web/                        # Demo landing pages and a reusable form script template
+├── web/                        # Demo landing pages (for the made-up client Acme Beauty) and a reusable form script template
 ├── .github/workflows/          # CI pipelines
 ├── .terraform-version          # Terraform version for tfenv
 └── project.version             # Version stamped onto deployed resources
@@ -313,11 +318,11 @@ This destroys the workflow's infrastructure and deletes its client secrets.
   --code_bucket <bucket>
 ```
 
-## Pilot: Acme Beauty
+## Pilot: birthday campaign
 
-The platform was piloted with **Acme Beauty**, a small beauty retailer, to run a **birthday campaign**. Customers signed up on a landing page (see `web/acme_beauty` and `web/acme_beauty_2`) with their name, contact details and birthday. Each sign-up added them to Acme Beauty's Mailchimp audience and SendMode SMS group, ready for birthday offers by email and text.
+The platform was piloted with a small beauty retailer to run a **birthday campaign**. In this repo the business appears as **Acme Beauty** (`acme_beauty`), a made-up name. Customers signed up on a landing page (see `web/acme_beauty` and `web/acme_beauty_2`) with their name, contact details and birthday. Each sign-up added them to the retailer's Mailchimp audience and SendMode SMS group, ready for birthday offers by email and text.
 
-The pilot showed that the end-to-end flow works for a real business at a running cost of almost nothing. Acme Beauty used it for a short period after the initial deployment.
+The pilot showed that the end-to-end flow works for a real business at a running cost of almost nothing. The retailer used it for a short period after the initial deployment.
 
 ## Roadmap
 
@@ -329,6 +334,13 @@ The prototype covers one event type (sign-up) and two channels. Planned next ste
 - **CI/CD:** build out GitHub Actions to test, build and deploy workflows to each environment.
 - **Modernise the toolchain:** upgrade from Terraform 0.11 and Python 3.8 to current versions.
 - **Self-service onboarding:** add clients without running scripts by hand.
+- **Failure handling:** a dead-letter queue with 2 more retry attempts, then alerts to monitoring stakeholders, plus smarter rules for which errors are worth retrying.
+- **Traceability without personal data:** correlation IDs and pseudonymous subscriber IDs in logs.
+- **Lambda networking:** optional VPC configuration for Lambdas that need to reach private resources.
+
+## License
+
+Released under the [MIT License](LICENSE).
 
 ---
 

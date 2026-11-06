@@ -16,4 +16,8 @@ class MailChimpClient(object):
         return mailchimp
 
     def __get_server(self, api_key):
-        return api_key.split('-')[1]
+        # MailChimp keys end with the data centre, e.g. "abc123-us6"
+        parts = api_key.rsplit('-', 1)
+        if len(parts) != 2 or not parts[1]:
+            raise ValueError("MailChimp API key has no data centre suffix (expected '<key>-<dc>')")
+        return parts[1]

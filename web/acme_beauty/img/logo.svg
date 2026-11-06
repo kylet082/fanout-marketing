@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 634 367" role="img" aria-label="Acme Beauty (placeholder logo)">
+  <!-- Placeholder logo for the demo page. "Acme Beauty" is a made-up business. -->
+  <circle cx="317" cy="130" r="62" fill="none" stroke="#6A3D8A" stroke-width="10"/>
+  <text x="317" y="152" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="64" font-weight="700" fill="#6A3D8A">A</text>
+  <text x="317" y="270" text-anchor="middle" font-family="Helvetica, Arial, sans-serif" font-size="64" fill="#6A3D8A">acme beauty</text>
+</svg>

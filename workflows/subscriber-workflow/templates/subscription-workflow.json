@@ -73,7 +73,7 @@
               },
               "Retry": [
                 {
-                  "ErrorEquals": ["States.All"],
+                  "ErrorEquals": ["States.ALL"],
                   "IntervalSeconds": 2,
                   "MaxAttempts": 2,
                   "BackoffRate": 2
@@ -99,7 +99,7 @@
               },
               "Retry": [
                 {
-                  "ErrorEquals": ["States.All"],
+                  "ErrorEquals": ["States.ALL"],
                   "IntervalSeconds": 2,
                   "MaxAttempts": 2,
                   "BackoffRate": 2

@@ -56,6 +56,7 @@ backend.tf
 !backend-template/*
 
 #project specific exclusions
+TODO.md
 zmisc/backend.tf
 
 
