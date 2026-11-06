@@ -1,5 +1,6 @@
 import json
 import os
+
 from aws_utilities.s3_client import S3Client
 from c_logger.service import get_logger
 
@@ -24,19 +25,23 @@ Example of Config :
 
 logger = get_logger(__name__)
 
+
+class ConfigNotFoundError(Exception):
+    """The requested company has no entry in the workflow config."""
+
+
 def lambda_handler(event, context):
     s3_path = "{}/{}/config/config.json".format(event['workflow_type'], event['workflow_name'])
     s3_bucket = os.environ['S3_CODE_BUCKET']
     company = event['company']
 
     config = get_config(s3_bucket, s3_path)
-    try:
-        segment = config[company]
-    except KeyError as e:
-        print("stopping")
-        raise e
-    print(segment)
-    return segment
+    if company not in config:
+        logger.error("No config for company '%s' in s3://%s/%s", company, s3_bucket, s3_path)
+        raise ConfigNotFoundError("No config for company '{}'".format(company))
+
+    logger.info("Loaded config for company '%s'", company)
+    return config[company]
 
 
 def get_config(bucket, path):

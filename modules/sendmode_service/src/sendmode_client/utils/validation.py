@@ -1,43 +1,19 @@
-def __dob(value):
-    return value
-
-def __mobile_number(value):
-    return value
-
-def __email(value):
-    return value
-
-def __first_name(value):
-    return value
-
-def __surname(value):
-    if value == None:
-        value = ""
-    return value
-
-def __address(value):
-    if value == None:
-        value = ""
-    return value
-
-def __town(value):
-    if value == "":
-        value = None
-    return value
-
-def __county(value):
-    if value == None:
-        value = ""
-    return value
+def _as_str(value):
+    return "" if value is None else str(value).strip()
 
 
 validator = {
-    "first_name": __first_name,
-    "surname": __surname,
-    "address": __address,
-    "town" : __town,
-    "county": __county,
-    "dob": __dob,
-    "mobile_number": __mobile_number,
-    "email": __email
+    "first_name": _as_str,
+    "surname": _as_str,
+    "address": _as_str,
+    "town": _as_str,
+    "county": _as_str,
+    "dob": _as_str,
+    "mobile_number": _as_str,
+    "email": _as_str,
 }
+
+
+def validate(params):
+    """Run each param through its validator. Missing values become ""."""
+    return {key: validator[key](value) for key, value in params.items()}

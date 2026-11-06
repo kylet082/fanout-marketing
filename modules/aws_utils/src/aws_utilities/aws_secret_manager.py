@@ -1,33 +1,29 @@
+import json
+
 import boto3
 from botocore.exceptions import ClientError
-import json
+
 from c_logger.service import get_logger
 
 logger = get_logger(__name__)
-# TODO : add default logger here
+
+_ERROR_MESSAGES = {
+    'DecryptionFailure': "Secrets Manager can't decrypt the secret with the provided KMS key",
+    'InternalServiceError': "Secrets Manager server-side error",
+    'InvalidParameterException': "Provided parameter value is not valid",
+    'InvalidRequestException': "Request is not valid for the current state of the secret",
+    'ResourceNotFoundException': "Can't find the secret resource",
+}
+
 
 def get_aws_secret(secret_name):
     secret_manager = boto3.client('secretsmanager')
     try:
-        response = secret_manager.get_secret_value(
-            SecretId=secret_name
-        )
+        response = secret_manager.get_secret_value(SecretId=secret_name)
     except ClientError as e:
-        error_code =e.repsonse['Error']['Code']
-        if error_code == 'InternalServiceErrorException':
-            logger.error("Secret Manager can't decrypt the protected secret with provided KMS")
-            raise e
-        elif error_code == 'InvalidParameterException':
-            logger.error("Server side Error!!")
-            raise e
-        elif error_code == 'InvalidRequestException':
-            logger.error("Provided Parameter value is not valid")
-            raise e
-        elif error_code == 'ResourceNotFoundException':
-            logger.error("Can't find the secret resource")
-            raise e
-        else:
-            logger.error("Can't retrieve the secret from Secret Manager")
-            raise e
+        error_code = e.response['Error']['Code']
+        message = _ERROR_MESSAGES.get(error_code, "Can't retrieve the secret from Secrets Manager")
+        logger.error("%s (code=%s, secret=%s)", message, error_code, secret_name)
+        raise
 
     return json.loads(response['SecretString'], strict=False)

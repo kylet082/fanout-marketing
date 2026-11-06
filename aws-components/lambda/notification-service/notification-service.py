@@ -1,13 +1,16 @@
-import boto3
-import os
 import json
+import os
+
+import boto3
 
 from c_logger.service import get_logger
 
 logger = get_logger(__name__)
 
+
 def lambda_handler(event, context):
-    logger.info('Got input {}'.format(event))
+    # The body holds subscriber details, so only log it at DEBUG.
+    logger.debug("Received event: %s", event)
     subject = event['subject']
     body = format_json(event['body'])
 
@@ -29,6 +32,6 @@ def publish_topic(subject, body, sns_arn):
         Message=body
     )
 
-    logger.info("SNS Email Response : " + str(response))
+    logger.info("Published notification '%s' (message id=%s)", subject, response.get('MessageId'))
 
     return True

@@ -1,5 +1,5 @@
 const store = 'acme_beauty';
-const endpoint = 'APIGW_URL';
+const endpoint = 'APIGW_URL'; // e.g. https://<api-id>.execute-api.<region>.amazonaws.com/<stage>
 //const cors = 'https://cors-anywhere.herokuapp.com';
 
 function send_data (form){

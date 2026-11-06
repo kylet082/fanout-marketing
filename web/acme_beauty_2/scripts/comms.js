@@ -1,7 +1,7 @@
 const store = 'acme_beauty';
 const endpoint = 'APIGW_URL';
 const cors = 'https://cors-anywhere.herokuapp.com';
-const redirect = "REDIRECT_URL";
+const redirect = "REDIRECT_URL"; // thank-you page to send the visitor to after sign-up
 
 document.getElementById('user-form').onsubmit = async function (e) {
     e.preventDefault();
