@@ -1,7 +1,6 @@
 #!/bin/bash
 DIR=$( pwd )
-SPLIT_PATH=(${DIR//\/EnterpriseService_v2/ })
-PROJECT_PATH="${SPLIT_PATH[0]}/EnterpriseService_v2"
+PROJECT_PATH="$(git rev-parse --show-toplevel)"
 
 set -e
 
